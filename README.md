@@ -23,7 +23,7 @@ Our code is compatible with most format of Electronic Health Records system, you
    - pedigree file
   
 
-### 1. Address file
+### * Address file
 
 The address file is a csv comma delimited file containing eight columns: **study_id**, **street_1**, **street_2**, **city**, **state**, **zip**, **from_year** and **thru_year**. The **study_id** is the de-identified id for a single patient. The **street_1**, **street_2**, **city**, **state** and **zip** are the de-identified address. The **from_year** and **thru_year** shows from which year through which year this patient lived in this address. Note that all missing information will be shown as blank.
 
