@@ -23,7 +23,7 @@ Our code is compatible with most format of Electronic Health Records system, you
    - pedigree file
   
 
-### * Address file
+### Address file
 
 The address file is a csv comma delimited file containing eight columns: **study_id**, **street_1**, **street_2**, **city**, **state**, **zip**, **from_year** and **thru_year**. The **study_id** is the de-identified id for a single patient. The **street_1**, **street_2**, **city**, **state** and **zip** are the de-identified address. The **from_year** and **thru_year** shows from which year through which year this patient lived in this address. Note that all missing information will be shown as blank.
 
@@ -35,9 +35,9 @@ The address file is a csv comma delimited file containing eight columns: **study
 | 56            | 221591        | 448275    | 2893   | 28      | 9427  | 2003        | 2011        |
 
 
-### 2. Name file
+### Name file
 
-The name file is a csv comma delimited file containing six colums: **study_id**, **last_name_id**, **first_name_id**, **middle_name_id**, **from_year** and **thru_year**. The **study_id** is the de-identified id for a single patient. The **last_name_id**, **first_name_id** and **middle_name_id** are the de-identified names. The **from_year** and **thru_year** shows from which year through which year this patient used this name. Note that all missing information will be shown as blank.
+The name file is a csv comma delimited file containing six columns: **study_id**, **last_name_id**, **first_name_id**, **middle_name_id**, **from_year** and **thru_year**. The **study_id** is the de-identified id for a single patient. The **last_name_id**, **first_name_id** and **middle_name_id** are the de-identified names. The **from_year** and **thru_year** shows from which year through which year this patient used this name. Note that all missing information will be shown as blank.
 
 
 | study_id | last_name_id   | first_name_id  | middle_name_id   | from_year   | thru_year   |
@@ -48,9 +48,9 @@ The name file is a csv comma delimited file containing six colums: **study_id**,
 | 50       | 105616         | 62099          |                  |             | 1997        |
 
 
-### 3. Demographic file
+### Demographic file
 
-The demographic file is a csv comma delimited file containing seven colums: **study_id**, **gender_code**, **birth_year**, **deceased_year**, **PHONE_NUM_id**, **from_year** and **thru_year**. The **study_id** is the de-identified id for a single patient. The **gender_code** is "F" for female, "M" for male, "U" for unknown and blank for missing value.
+The demographic file is a csv comma delimited file containing seven columns: **study_id**, **gender_code**, **birth_year**, **deceased_year**, **PHONE_NUM_id**, **from_year** and **thru_year**. The **study_id** is the de-identified id for a single patient. The **gender_code** is "F" for female, "M" for male, "U" for unknown and blank for missing value.
 
 | study_id | gender_code   | birth_year  | deceased_year   | PHONE_NUM_id   | from_year   | thru_year   |
 | -------- |:-------------:| -----------:| ---------------:|---------------:|------------:|------------:|
@@ -59,14 +59,45 @@ The demographic file is a csv comma delimited file containing seven colums: **st
 | 282056   | U             | 1986        | 2010            |                |             |             |
 
 
-### 4. Account file
+### Account file
  
-The account file is a csv comma delimited file containing four colums: **study_id**, **ACCT_NUM_id**, **from_year** and **thru_year**. The **study_id** is the de-identified id for a single patient. The **ACCT_NUM_id** is the de-identified id for account. Note that all missing information will be shown as blank.
+The account file is a csv comma delimited file containing four columns: **study_id**, **ACCT_NUM_id**, **from_year** and **thru_year**. The **study_id** is the de-identified id for a single patient. The **ACCT_NUM_id** is the de-identified id for account. Note that all missing information will be shown as blank.
 
 | study_id | ACCT_NUM_id   | from_year   | thru_year   |
 | -------- |--------------:|------------:|------------:|
 | 2        | 982162        |             | 2011        |
 | 10       | 523063        | 2005        | 2011        |
+
+
+### Patient file
+
+The patient file is a csv comma delimited file containing five columns: **study_id**, **first_name_id**, **last_name_id**, **PHONE_NUM_id** and **zip**.
+
+| study_id | last_name_id   | first_name_id  |  PHONE_NUM_id    |     zip     |
+| ---------|:--------------:| --------------:| ----------------:|------------:|
+| 1        | 103775         | 53806          |    1112223333    |    18216    |
+| 10       | 46972          | 44623          |    2223334444    |    11753    | 
+| 50       | 2696           | 62099          |    3334445555    |    18216    |
+| 96       | 105616         | 53806          |    1112223333    |    10032    |
+| 122      | 345228         | 44623          |    2223334444    |    11753    |
+
+
+### Emergency contact file
+
+The emergency contact file is a csv comma delimited file containing six columns: **study_id**, **EC_FirstName**, **EC_LastName**, **EC_PhoneNumber**, **EC_Zipcode** and **EC_Relationship**. Columns two to five are the information of emergency contact person to the patient. **study_id** is the identity ID of the patient. **EC_Relationship** is the self-reported relationship of emergency contact person to the patient. e.g. "Mother" means the emergency contact person is the mother of the patient.
+
+| study_id | EC_FirstName   | EC_LastName    | EC_PhoneNumber   | EC_Zipcode  | EC_Relationship  |
+| ---------|:--------------:| --------------:| ----------------:|------------:|-----------------:|
+| 1        | 105616         | 53806          |     1112223333   |    18216    |      Mother      |
+| 10       | 345228         | 44623          |     2223334444   |    11753    |      Father      |
+
+
+### Pedigree file
+
+| family_ID | num_fam_member | individual_ID  |   Maternal ID    | Paternal_ID |    Gender   |
+| --------- |:--------------:| --------------:| ----------------:|------------:|------------:|
+| 1         |        5       |      50        |     1112223333   |    18216    |      M      |
+| 2         |        3       |      96        |     2223334444   |    11753    |      F      |
 
 
 ### Output files
