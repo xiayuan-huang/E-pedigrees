@@ -2,7 +2,7 @@
 # E-pedigrees
 
 E-pdigrees combines two validated family prediction algorithms (FPPA and RIFTEHR) into a single software package for high throughput pedigrees construction. The convenient software considers patients’ basic demographic information and/or emergency contact data to infer high-accuracy parent-child relationship. Importantly, E-Pedigrees allows users to layer in additional pedigree data when available and provides options for applying different logical rules to improve accuracy of inferred family relationships. You can refer to two papers for the details of two core algorithms. ["Applying family analyses to electronic health
-records to facilitate genetic research"] and ["Disease Heritability Inferred from Familial Relationships Reported in Medical Records"]
+records to facilitate genetic research"](https://academic.oup.com/bioinformatics/article/34/4/635/4158031) and ["Disease Heritability Inferred from Familial Relationships Reported in Medical Records"](https://www.cell.com/cell/pdf/S0092-8674(18)30525-7.pdf).
 
 
 
