@@ -6,15 +6,22 @@ records to facilitate genetic research"](https://academic.oup.com/bioinformatics
 
 
 
-## Running family pedigree prediction algorithm:
+## Running E-pedigrees:
 
 Run main.py with required input files and correct format.
 
-Our code is compatible with Marshfield Clinic Electronic Health Records system, it requires four de-identified files as inputs:
-  1. Address file
-  2. Name file
-  3. Demographic file
-  4. Account file
+Our code is compatible with most format of Electronic Health Records system, you can provide options of de-identified files as inputs:
+1. Basic demographic information:
+   - Address file
+   - Name file
+   - Demographic file
+   - Account file
+2. Self-reported relationship data:
+   - Patient file
+   - Emergency contact file
+3. Family pedigree file in standard PED format:
+   - pedigree file
+  
 
 ### 1. Address file
 
@@ -64,7 +71,7 @@ The account file is a csv comma delimited file containing four colums: **study_i
 
 ### Output files
 
-Eventually we will get two output files: 1. parent_child relathionship file and pedigree file.
-The parent_child relationship file is an intermediate txt file which records the predicted parent_child relationship between a pair of patients. The pedigree file is the final output family pedigrees csv file which contains six colums: 1. randomly assgined family ID, 2. number of family members, 3. patient's de-identified study id, 4. this patient's mother's de-identified study id, 5. this patient's father's de-identified study id and 6. gender code of this patient.
+Eventually we will get one output files: 1. parent_child relathionship file and pedigree file.
+The parent_child relationship file is an intermediate txt file which records the predicted parent_child relationship between a pair of patients. The pedigree file is the final output family pedigrees csv file in standard PED format which contains six colums: 1. randomly assgined family ID, 2. number of family members, 3. patient's de-identified study id, 4. this patient's mother's de-identified study id, 5. this patient's father's de-identified study id and 6. gender code of this patient.
 
 
