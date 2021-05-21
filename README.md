@@ -6,7 +6,7 @@ records to facilitate genetic research"](https://academic.oup.com/bioinformatics
 
 
 
-## Running E-pedigrees:
+## Input and output requirements:
 
 Run main.py with required input files and correct format.
 
@@ -106,3 +106,4 @@ Eventually we will get one output files: 1. parent_child relathionship file and 
 The parent_child relationship file is an intermediate txt file which records the predicted parent_child relationship between a pair of patients. The pedigree file is the final output family pedigrees csv file in standard PED format which contains six colums: 1. randomly assgined family ID, 2. number of family members, 3. patient's de-identified study id, 4. this patient's mother's de-identified study id, 5. this patient's father's de-identified study id and 6. gender code of this patient.
 
 
+## Running E-pedigrees:
