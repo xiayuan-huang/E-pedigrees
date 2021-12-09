@@ -73,20 +73,20 @@ The account file is a csv comma delimited file containing four columns: **study_
 
 The patient file is a csv comma delimited file containing five columns: **study_id**, **first_name_id**, **last_name_id**, **PHONE_NUM_id** and **zip**.
 
-| study_id | last_name_id   | first_name_id  |  PHONE_NUM_id    |     zip     |
-| ---------|:--------------:| --------------:| ----------------:|------------:|
-| 1        | 103775         | 53806          |    1112223333    |    18216    |
-| 10       | 46972          | 44623          |    2223334444    |    11753    | 
-| 50       | 2696           | 62099          |    3334445555    |    18216    |
-| 96       | 105616         | 53806          |    1112223333    |    10032    |
-| 122      | 345228         | 44623          |    2223334444    |    11753    |
+| PatientID|  FirstName     |    LastName    |       Sex        |  PhoneNumber    |   Zipcode   |  birth_year | deceased_year |
+| ---------|:--------------:| --------------:|-----------------:|----------------:|------------:|------------:|--------------:|
+| 1        | 103775         | 53806          |         M        |   1112223333    |    18216    |     1970    |               |  
+| 10       | 46972          | 44623          |         M        |   2223334444    |    11753    |     1972    |               |  
+| 50       | 2696           | 62099          |         F        |   3334445555    |    18216    |     1980    |               |
+| 96       | 105616         | 53806          |         F        |   1112223333    |    10032    |     1956    |               |
+| 122      | 345228         | 44623          |         F        |   2223334444    |    11753    |     1990    |               |
 
 
 ### Emergency contact file
 
 The emergency contact file is a csv comma delimited file containing six columns: **study_id**, **EC_FirstName**, **EC_LastName**, **EC_PhoneNumber**, **EC_Zipcode** and **EC_Relationship**. Columns two to five are the information of emergency contact person to the patient. **study_id** is the identity ID of the patient. **EC_Relationship** is the self-reported relationship of emergency contact person to the patient. e.g. "Mother" means the emergency contact person is the mother of the patient.
 
-| study_id | EC_FirstName   | EC_LastName    | EC_PhoneNumber   | EC_Zipcode  | EC_Relationship  |
+| PatientID| EC_FirstName   | EC_LastName    | EC_PhoneNumber   | EC_Zipcode  | EC_Relationship  |
 | ---------|:--------------:| --------------:| ----------------:|------------:|-----------------:|
 | 1        | 105616         | 53806          |     1112223333   |    18216    |      Mother      |
 | 10       | 345228         | 44623          |     2223334444   |    11753    |      Father      |
