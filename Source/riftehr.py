@@ -55,7 +55,7 @@ def riftehr(patientFile, ecFile, familyTreeOutput):
         mt = matchECtoDemog.matches(patientFile, ecFile)
 
         ### merge new PED file
-        merge = riftehr_new_ped.matches(mt.qc_matches, mt.sex, familyTreeOutput)
+        merge = riftehr_new_ped.matches(ped, mt.qc_matches, mt.sex, familyTreeOutput)
         
     else:
         mt = matchECtoDemog.matches(patientFile, ecFile)

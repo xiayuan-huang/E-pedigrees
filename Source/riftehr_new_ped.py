@@ -10,7 +10,7 @@ import copy
 import networkx as nx
 
 class matches(object):
-    def __in__(self, ped, matches, sex, famTree):
+    def __init__(self, ped, matches, sex, famTree):
         self.pedFile = ped
         self.qc_matches = matches
         self.sex = sex
