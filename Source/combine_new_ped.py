@@ -114,7 +114,7 @@ class matches(object):
 
         comp = sorted(nx.connected_components(G), key = len, reverse=True)
 
-        outfh = open(out, 'w')
+        outfh = open(self.familyTree, 'w')
         writer = csv.writer(outfh)
         writer.writerow(['familyID', 'family_member', 'study_ID', 'StudyID_MATERNAL', 'StudyID_PATERNAL', 'Sex'])
 
