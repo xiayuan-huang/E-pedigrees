@@ -9,6 +9,7 @@ import matchECtoDemog
 import decisionTreeV7
 import family_treeV4
 import inference
+import combine_new_ped
 
 def combine(addressFile, nameFile, demoFile, accountFile, outputFile, patientFile, ecFile, familyTreeOutput):
     reader_add = csv.reader(open(addressFile, 'r'), delimiter = ',')
@@ -75,8 +76,10 @@ def combine(addressFile, nameFile, demoFile, accountFile, outputFile, patientFil
 
         #newFamilyTree.connected('fppa_pedigree.csv')
 
-        new_infer = inference.matches(mt.qc_matches, mt.sex, newFamilyTree.edges, newFamilyTree.gender)
-        new_infer.assignFamilies(familyTreeOutput)
+        new_infer = inference.matches(mt.qc_matches, mt.sex, newFamilyTree.edges, newFamilyTree.gender, familyTreeOutput)
+        #new_infer.assignFamilies(familyTreeOutput)
+
+        comb = combine_new_ped.matches(ped, new_infer.ec, new_infer.sex, new_infer.fppa_pair, new_infer.p_c_gender, new_infer.famOut)
 
         
     else:
@@ -98,8 +101,8 @@ def combine(addressFile, nameFile, demoFile, accountFile, outputFile, patientFil
 
         #newFamilyTree.connected('fppa_pedigree.csv')
 
-        new_infer = inference.matches(mt.qc_matches, mt.sex, newFamilyTree.edges, newFamilyTree.gender)
-        new_infer.assignFamilies(familyTreeOutput)
+        new_infer = inference.matches(mt.qc_matches, mt.sex, newFamilyTree.edges, newFamilyTree.gender, familyTreeOutput)
+        new_infer.assignFamilies()
 
 
 
