@@ -107,3 +107,4 @@ The parent_child relationship file is an intermediate txt file which records the
 
 
 ## Running E-pedigrees:
+Please refer to the user manual.
