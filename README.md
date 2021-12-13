@@ -94,7 +94,7 @@ The emergency contact file is a csv comma delimited file containing six columns:
 
 ### Pedigree file
 
-| family_ID | num_fam_member | individual_ID  |   Maternal ID    | Paternal_ID |    Gender   |
+| family_ID | num_fam_member | individual_ID  |   Maternal_ID    | Paternal_ID |    Gender   |
 | --------- |:--------------:| --------------:| ----------------:|------------:|------------:|
 | 1         |        5       |      50        |     1112223333   |    18216    |      M      |
 | 2         |        3       |      96        |     2223334444   |    11753    |      F      |
