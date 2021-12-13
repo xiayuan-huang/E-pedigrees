@@ -71,8 +71,9 @@ class matches(object):
                         del self.fppa_pair[k1][k2]
 
         ### create opposite relationship
-        for i in self.fppa_pair:
-            for j in self.fppa_pair[i]:
+        fppa_pair_copy = copy.deepcopy(self.fppa_pair)
+        for i in fppa_pair_copy:
+            for j in fppa_pair_copy:
                 if j in self.fppa_pair:
                     self.fppa_pair[j][i] = 'child'
                 else:
