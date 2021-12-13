@@ -16,14 +16,17 @@ class matches(object):
     def __init__(self, riftehr_relation_pair, sex, fppa_relation_pair, gender, familyTreeOutput):
         ### gender of patient from fppa
         self.p_c_gender = gender
+        ### parent child relationship pairs from fppa
         self.p_c = fppa_relation_pair
+        ### relationship pairs from emergency contact (RIFTEHR)
         self.ec = riftehr_relation_pair
         ### sex of patient from riftehr
         self.sex = sex
+        ### output family pedigree
         self.famOut = familyTreeOutput
 
         self.updateFPPA_relation()
-        self.assignFamilies()
+        #self.assignFamilies()
 
     def updateFPPA_relation(self):
         self.fppa_pair = {}
