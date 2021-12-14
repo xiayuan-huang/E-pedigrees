@@ -45,6 +45,8 @@ class matches(object):
                 elif self.p_c_gender[p].lower() == 'm':
                     rel[p] = 'father'
                 self.fppa_pair[c] = rel
+        ### delete variable
+        del self.p_c
 
         ### delete conflicted parent_child pairs with 
         qc_matches_copy = copy.deepcopy(self.fppa_pair)
@@ -69,17 +71,21 @@ class matches(object):
                         pass
                     else:
                         del self.fppa_pair[k1][k2]
+        ### delete variable
+        del qc_matches_copy
 
         ### create opposite relationship
         fppa_pair_copy = copy.deepcopy(self.fppa_pair)
         for i in fppa_pair_copy:
-            for j in fppa_pair_copy:
+            for j in fppa_pair_copy[i]:
                 if j in self.fppa_pair:
                     self.fppa_pair[j][i] = 'child'
                 else:
                     rel = {}
                     rel[i] = 'child'
                     self.fppa_pair[j] = rel
+        ### delete variable
+        del fppa_pair_copy
         
         ### infer additional relationships, first degree
         qc_matches_copy = copy.deepcopy(self.fppa_pair)
@@ -99,6 +105,8 @@ class matches(object):
                                 self.fppa_pair[k1][k3] = 'spouse'
                             elif r2.lower() == 'child':
                                 self.fppa_pair[k1][k3] = 'grandchild'
+        ### delete variable
+        del qc_matches_copy
         
         qc_matches_copy = copy.deepcopy(self.fppa_pair)
         for k1, v in qc_matches_copy.items():
@@ -178,6 +186,8 @@ class matches(object):
                                     self.fppa_pair[k1][k3] = 'grandaunt'
                                 elif self.p_c_gender[k3] == 'm':
                                     self.fppa_pair[k1][k3] = 'granduncle'
+        ### delete variable
+        del qc_matches_copy
         
         qc_matches_copy = copy.deepcopy(self.fppa_pair)
         for k1, v in qc_matches_copy.items():
@@ -219,7 +229,9 @@ class matches(object):
                                 self.fppa_pair[k1][k3] = 'grandnephew'
                             elif r2.lower() == 'grandchild':
                                 self.fppa_pair[k1][k3] = 'great-grandnephew'
-        
+        ### delete variable
+        del qc_matches_copy
+
         ### break conflicts, pay attention here
         break_pairs = copy.deepcopy(self.fppa_pair)
         for k1, v in break_pairs.items():
@@ -262,7 +274,9 @@ class matches(object):
                                                     del self.fppa_pair[pa][k1]
                                                 if k2 in self.fppa_pair[pa]:
                                                     del self.fppa_pair[pa][k2]
-        
+        ### delete variable
+        del break_pairs
+
         # delete empty relationship dictionary
         fppa_pair_copy = copy.deepcopy(self.fppa_pair)
         for i in fppa_pair_copy:
@@ -272,10 +286,12 @@ class matches(object):
         ### unsolved conflits
         self.conflit_id_pool = set()
         for i in self.fppa_pair:
-            for j in self.fppa_pair[i]:
-                if self.fppa_pair[i][j] != self.ec[i][j]:
-                    self.conflit_id_pool.add(i)
-                    self.conflit_id_pool.add(j)
+            if i in self.ec:
+                for j in self.fppa_pair[i]:
+                    if j in self.ec[i]:
+                        if self.fppa_pair[i][j] != self.ec[i][j]:
+                            self.conflit_id_pool.add(i)
+                            self.conflit_id_pool.add(j)
 
     def assignFamilies(self):
         self.edges = []
