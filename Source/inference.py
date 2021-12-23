@@ -53,7 +53,7 @@ class matches(object):
         for k1, v in qc_matches_copy.items():
             if k1 in self.ec:
                 for k2, r1 in v.items():
-                    if k2 in self.ec:
+                    if k2 in self.ec and k2 in self.ec[k1]:
                         if r1.lower() != self.ec[k1][k2]:
                             del self.fppa_pair[k1][k2]
                     else:
