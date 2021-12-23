@@ -254,7 +254,7 @@ class matches(object):
                                                 if k2 in self.fppa_pair[pa]:
                                                     del self.fppa_pair[pa][k2]
                             elif self.ec[k1][k2] == 'child' or self.ec[k2][k1] == 'child':
-                                for mem in self.fppa_pair[k1]:
+                                for mem in break_pairs[k1]:
                                     if mem in self.fppa_pair[k2]:
                                         del self.fppa_pair[k1][mem]
                                         del self.fppa_pair[k2][mem]
@@ -264,7 +264,7 @@ class matches(object):
                                             if k2 in self.fppa_pair[mem]:
                                                 del self.fppa_pair[mem][k2]
                             elif self.ec[k1][k2] == 'niece' or self.ec[k1][k2] == 'nephew' or self.ec[k2][k1] == 'niece' or self.ec[k2][k1] == 'nephew':
-                                for pa in self.fppa_pair[k1]:
+                                for pa in break_pairs[k1]:
                                     if pa == 'mother' or pa == 'father':
                                         if pa in self.fppa_pair[k2]:
                                             del self.fppa_pair[k1][pa]
