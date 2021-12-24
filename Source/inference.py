@@ -30,6 +30,7 @@ class matches(object):
 
     def updateFPPA_relation(self):
         self.fppa_pair = {}
+        self.famIDChanged = set()
         for i in self.p_c:
             c = i[0]
             p = i[1]
@@ -56,10 +57,12 @@ class matches(object):
                     if k2 in self.ec and k2 in self.ec[k1]:
                         if r1.lower() != self.ec[k1][k2]:
                             del self.fppa_pair[k1][k2]
+                            self.famIDChanged.add(k1)
                     else:
                         for i in self.ec[k1]:
                             if r1 == self.ec[k1][i] and i != k2:
                                 del self.fppa_pair[k1][k2]
+                                self.famIDChanged.add(k1)
         ### k1 not in ec, parents of k1 in ec
             else:
                 for k2 in v:
@@ -71,6 +74,7 @@ class matches(object):
                         pass
                     else:
                         del self.fppa_pair[k1][k2]
+                        self.famIDChanged.add(k1)
         ### delete variable
         del qc_matches_copy
 
@@ -243,37 +247,65 @@ class matches(object):
                         #del self.fppa_pair[k1][k2]
                         if r1.lower() == 'sibling':
                             if self.ec[k1][k2] == 'spouse':
-                                for pa in self.fppa_pair[k1]:
-                                    if pa == 'mother' or pa == 'father':
-                                        if pa in self.fppa_pair[k2]:
-                                            del self.fppa_pair[k1][pa]
-                                            del self.fppa_pair[k2][pa]
-                                            if pa in self.fppa_pair:
-                                                if k1 in self.fppa_pair[pa]:
-                                                    del self.fppa_pair[pa][k1]
-                                                if k2 in self.fppa_pair[pa]:
-                                                    del self.fppa_pair[pa][k2]
-                            elif self.ec[k1][k2] == 'child' or self.ec[k2][k1] == 'child':
+                                for pa in self.break_pairs[k1]:
+                                    if pa in self.fppa_pair[k1]:
+                                        if self.fppa_pair[k1][pa] == 'mother' or self.fppa_pair[k1][pa] == 'father':
+                                            if k2 in self.fppa_pair and pa in self.fppa_pair[k2]:
+                                                del self.fppa_pair[k1][pa]
+                                                del self.fppa_pair[k2][pa]
+                                                self.famIDChanged.add(k1)
+                                                if pa in self.fppa_pair:
+                                                    if k1 in self.fppa_pair[pa]:
+                                                        del self.fppa_pair[pa][k1]
+                                                    if k2 in self.fppa_pair[pa]:
+                                                        del self.fppa_pair[pa][k2]
+                            #elif self.ec[k1][k2] == 'child' or self.ec[k2][k1] == 'child':
+                            elif self.ec[k1][k2] == 'child' or self.ec[k1][k2] == 'mother' or self.ec[k1][k2] == 'father':
+                                del self.fppa_pair[k1][k2]
+                                self.famIDChanged.add(k1)
                                 for mem in break_pairs[k1]:
-                                    if mem in self.fppa_pair[k2]:
-                                        del self.fppa_pair[k1][mem]
-                                        del self.fppa_pair[k2][mem]
-                                        if mem in self.fppa_pair:
-                                            if k1 in self.fppa_pair[mem]:
-                                                del self.fppa_pair[mem][k1]
-                                            if k2 in self.fppa_pair[mem]:
-                                                del self.fppa_pair[mem][k2]
-                            elif self.ec[k1][k2] == 'niece' or self.ec[k1][k2] == 'nephew' or self.ec[k2][k1] == 'niece' or self.ec[k2][k1] == 'nephew':
+                                    if k2 in self.fppa_pair:
+                                        if mem in self.fppa_pair[k2]:
+                                            del self.fppa_pair[k2][mem]
+                                            if mem in self.fppa_pair[k1]:
+                                                del self.fppa_pair[k1][mem]
+                                            if mem in self.fppa_pair:
+                                                if k1 in self.fppa_pair[mem]:
+                                                    del self.fppa_pair[mem][k1]
+                                                if k2 in self.fppa_pair[mem]:
+                                                    del self.fppa_pair[mem][k2]
+                            #elif self.ec[k1][k2] == 'niece' or self.ec[k1][k2] == 'nephew' or self.ec[k2][k1] == 'niece' or self.ec[k2][k1] == 'nephew':
+                            elif self.ec[k1][k2] == 'niece' or self.ec[k1][k2] == 'nephew':
                                 for pa in break_pairs[k1]:
-                                    if pa == 'mother' or pa == 'father':
-                                        if pa in self.fppa_pair[k2]:
-                                            del self.fppa_pair[k1][pa]
-                                            del self.fppa_pair[k2][pa]
-                                            if pa in self.fppa_pair:
-                                                if k1 in self.fppa_pair[pa]:
-                                                    del self.fppa_pair[pa][k1]
-                                                if k2 in self.fppa_pair[pa]:
-                                                    del self.fppa_pair[pa][k2]
+                                    if break_pairs[k1][pa] == 'mother' or break_pairs[k1][pa] == 'father':
+                                        if k2 in self.fppa_pair:
+                                            if pa in self.fppa_pair[k2]:
+                                                del self.fppa_pair[k2][pa]
+                                                self.famIDChanged.add(k2)
+                                                if pa in self.fppa_pair[k1]:
+                                                    del self.fppa_pair[k1][pa]
+                                                if pa in self.fppa_pair:
+                                                    if k1 in self.fppa_pair[pa]:
+                                                        del self.fppa_pair[pa][k1]
+                                                    if k2 in self.fppa_pair[pa]:
+                                                        del self.fppa_pair[pa][k2]
+                        elif r1.lower() == 'mother' or r1.lower() == 'father':
+                            del self.fppa_pair[k1][k2]
+                            self.famIDChanged.add(k1)
+                if r1.lower() == 'mother':
+                    for mem in self.ec[k1]:
+                        if self.ec[k1][mem].lower() == 'mother':
+                            if mem != k2:
+                                del self.fppa_pair[k1][k2]
+                                self.famIDChanged.add(k1)
+                if r1.lower() == 'father':
+                    for mem in self.ec[k1]:
+                        if self.ec[k1][mem].lower() == 'father':
+                            if mem != k2:
+                                del self.fppa_pair[k1][k2]
+                                self.famIDChanged.add(k1)
+
+
         ### delete variable
         del break_pairs
 
@@ -338,10 +370,16 @@ class matches(object):
         writer_reference = csv.writer(ec_refer)
         writer_reference.writerow(['study_id1', 'study_id2', 'relationship'])
 
+        outChangedFamily = open('changed_family.csv', 'w')
+        writer_changed = csv.writer(outChangedFamily)
+        writer_changed.writerow(['FamilyID'])
+
         conflict_family_id = set()
+        changed_family_id = set()
 
         for family_id in range(len(comp)):
             flag = False
+            flag_changed = False
             for individual_id in comp[family_id]:
                 member_num = len(comp[family_id])
                 if flag == False and individual_id in self.conflit_id_pool:
@@ -361,6 +399,11 @@ class matches(object):
                 else:
                     sex = ''
                 writer.writerow([family_id+1, member_num, individual_id, mo, fa, sex])
+                if flag_changed ==False and individual_id in self.famIDChanged:
+                    flag_changed = True
+            if flag_changed:
+                changed_family_id.add(family_id+1)
+                writer_changed.writerow(family_id+1)
             if flag:
                 conflict_family_id.add(family_id+1)
                 writer_conflict.writerow([family_id+1])
@@ -371,3 +414,4 @@ class matches(object):
         outfh.close()
         outConflict.close()
         ec_refer.close()
+        outChangedFamily.close()
