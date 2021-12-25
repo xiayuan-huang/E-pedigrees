@@ -247,7 +247,7 @@ class matches(object):
                         #del self.fppa_pair[k1][k2]
                         if r1.lower() == 'sibling':
                             if self.ec[k1][k2] == 'spouse':
-                                for pa in self.break_pairs[k1]:
+                                for pa in break_pairs[k1]:
                                     if pa in self.fppa_pair[k1]:
                                         if self.fppa_pair[k1][pa] == 'mother' or self.fppa_pair[k1][pa] == 'father':
                                             if k2 in self.fppa_pair and pa in self.fppa_pair[k2]:
