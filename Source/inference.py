@@ -296,14 +296,16 @@ class matches(object):
                     for mem in self.ec[k1]:
                         if self.ec[k1][mem].lower() == 'mother':
                             if mem != k2:
-                                del self.fppa_pair[k1][k2]
-                                self.famIDChanged.add(k1)
+                                if k1 in self.fppa_pair and k2 in self.fppa_pair[k1]:
+                                    del self.fppa_pair[k1][k2]
+                                    self.famIDChanged.add(k1)
                 if r1.lower() == 'father':
                     for mem in self.ec[k1]:
                         if self.ec[k1][mem].lower() == 'father':
                             if mem != k2:
-                                del self.fppa_pair[k1][k2]
-                                self.famIDChanged.add(k1)
+                                if k1 in self.fppa_pair and k2 in self.fppa_pair[k1]:
+                                    del self.fppa_pair[k1][k2]
+                                    self.famIDChanged.add(k1)
 
 
         ### delete variable
@@ -312,8 +314,9 @@ class matches(object):
         # delete empty relationship dictionary
         fppa_pair_copy = copy.deepcopy(self.fppa_pair)
         for i in fppa_pair_copy:
-            if not bool(self.fppa_pair[i]):
-                del self.fppa_pair[i]
+            if i in self.fppa_pair:
+                if not bool(self.fppa_pair[i]):
+                    del self.fppa_pair[i]
             
         ### unsolved conflits
         self.conflit_id_pool = set()
