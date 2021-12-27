@@ -239,17 +239,17 @@ class matches(object):
         ### break conflicts, pay attention here
         break_pairs = copy.deepcopy(self.fppa_pair)
         for k1, v in break_pairs.items():
-            if k1 not in self.ec:
+            if k1 not in self.ec or k1 not in self.fppa_pair:
                 continue
             for k2, r1 in v.items():
                 if k2 in self.ec[k1]:
-                    if r1.lower() != self.ec[k1][k2]:
+                    if r1.lower() != self.ec[k1][k2].lower():
                         #del self.fppa_pair[k1][k2]
                         if r1.lower() == 'sibling':
-                            if self.ec[k1][k2] == 'spouse':
+                            if self.ec[k1][k2].lower() == 'spouse':
                                 for pa in break_pairs[k1]:
                                     if pa in self.fppa_pair[k1]:
-                                        if self.fppa_pair[k1][pa] == 'mother' or self.fppa_pair[k1][pa] == 'father':
+                                        if self.fppa_pair[k1][pa].lower() == 'mother' or self.fppa_pair[k1][pa].lower() == 'father':
                                             if k2 in self.fppa_pair and pa in self.fppa_pair[k2]:
                                                 del self.fppa_pair[k1][pa]
                                                 del self.fppa_pair[k2][pa]
@@ -260,9 +260,10 @@ class matches(object):
                                                     if k2 in self.fppa_pair[pa]:
                                                         del self.fppa_pair[pa][k2]
                             #elif self.ec[k1][k2] == 'child' or self.ec[k2][k1] == 'child':
-                            elif self.ec[k1][k2] == 'child' or self.ec[k1][k2] == 'mother' or self.ec[k1][k2] == 'father':
-                                del self.fppa_pair[k1][k2]
-                                self.famIDChanged.add(k1)
+                            elif self.ec[k1][k2].lower() == 'child' or self.ec[k1][k2].lower() == 'mother' or self.ec[k1][k2].lower() == 'father':
+                                if k2 in self.fppa_pair[k1]:
+                                    del self.fppa_pair[k1][k2]
+                                    self.famIDChanged.add(k1)
                                 for mem in break_pairs[k1]:
                                     if k2 in self.fppa_pair:
                                         if mem in self.fppa_pair[k2]:
@@ -275,9 +276,9 @@ class matches(object):
                                                 if k2 in self.fppa_pair[mem]:
                                                     del self.fppa_pair[mem][k2]
                             #elif self.ec[k1][k2] == 'niece' or self.ec[k1][k2] == 'nephew' or self.ec[k2][k1] == 'niece' or self.ec[k2][k1] == 'nephew':
-                            elif self.ec[k1][k2] == 'niece' or self.ec[k1][k2] == 'nephew':
+                            elif self.ec[k1][k2].lower() == 'niece' or self.ec[k1][k2].lower() == 'nephew':
                                 for pa in break_pairs[k1]:
-                                    if break_pairs[k1][pa] == 'mother' or break_pairs[k1][pa] == 'father':
+                                    if break_pairs[k1][pa].lower() == 'mother' or break_pairs[k1][pa].lower() == 'father':
                                         if k2 in self.fppa_pair:
                                             if pa in self.fppa_pair[k2]:
                                                 del self.fppa_pair[k2][pa]
@@ -290,8 +291,9 @@ class matches(object):
                                                     if k2 in self.fppa_pair[pa]:
                                                         del self.fppa_pair[pa][k2]
                         elif r1.lower() == 'mother' or r1.lower() == 'father':
-                            del self.fppa_pair[k1][k2]
-                            self.famIDChanged.add(k1)
+                            if k2 in self.fppa_pair[k1]:
+                                del self.fppa_pair[k1][k2]
+                                self.famIDChanged.add(k1)
                 if r1.lower() == 'mother':
                     for mem in self.ec[k1]:
                         if self.ec[k1][mem].lower() == 'mother':
