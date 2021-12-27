@@ -356,8 +356,10 @@ class matches(object):
                     ec_child_father[i] = j
                 if i in self.fppa_pair and j not in self.fppa_pair:
                     ec_relationship_reference.add((i, j, self.ec[i][j]))
+                # here RIFTEHR may not search out all the relationships
                 if i not in self.fppa_pair and j in self.fppa_pair:
-                    ec_relationship_reference.add((j, i, self.ec[j][i]))
+                    if j in self.ec and i in self.ec[j]:
+                        ec_relationship_reference.add((j, i, self.ec[j][i]))
         G = nx.Graph()
         G.add_edges_from(self.edges)
 
@@ -391,12 +393,17 @@ class matches(object):
                     flag = True
                 if individual_id in child_mother:
                     mo = child_mother[individual_id]
+                elif individual_id in ec_child_mother:
+                    mo = ec_child_mother[individual_id]
                 else:
                     mo = ''
                 if individual_id in child_father:
                     fa = child_father[individual_id]
+                elif individual_id in ec_child_father:
+                    fa = ec_child_father[individual_id]
                 else:
                     fa = ''
+                # make sure the sex info of patient is consistent in both FPPA and RIFTEHR 
                 if individual_id in self.p_c_gender:
                     sex = self.p_c_gender[individual_id]
                 elif individual_id in self.sex:
