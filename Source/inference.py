@@ -415,7 +415,7 @@ class matches(object):
                     flag_changed = True
             if flag_changed:
                 changed_family_id.add(family_id+1)
-                writer_changed.writerow(family_id+1)
+                writer_changed.writerow([family_id+1])
             if flag:
                 conflict_family_id.add(family_id+1)
                 writer_conflict.writerow([family_id+1])
