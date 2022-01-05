@@ -184,7 +184,8 @@ class matches(object):
                 rel = []
                 rel.append((i[1], i[2]))
                 matching_dict[i[0]] = rel
-        for k, v in matching_dict.items():
+        matching_dict_copy = copy.deepcopy(matching_dict)
+        for k, v in matching_dict_copy.items():
             if len(v) >= 20:
                 del matching_dict[k]
         self.qc_matches = {}
@@ -376,5 +377,10 @@ class matches(object):
         outfh.close()
     
     def test(self):
+        outfh = open('relationship_for_each.csv', 'w')
+        writer = csv.writer(outfh)
+        writer.writerow(['patient_ID1', 'patient_ID2', 'relationship'])
         for i in self.qc_matches:
-            print(i, self.qc_matches[i])
+            for j in self.qc_matches[i]:
+                print(i, self.qc_matches[i])
+                writer.writerow([i, j, self.qc_matches[i][j]])

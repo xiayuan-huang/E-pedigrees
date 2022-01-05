@@ -10,8 +10,8 @@ import sys
 
 class matches(object):
     def __init__(self, ped, fppa_relation_pair, gender, familyTreeOutput):
-        self.gender = gender
-        self.p_c = fppa_relation_pair
+        self.gender = copy.deepcopy(gender)
+        self.p_c = copy.deepcopy(fppa_relation_pair)
         self.pedFile = ped
         self.famOut = familyTreeOutput
         self.readPed()
@@ -34,7 +34,7 @@ class matches(object):
             for i, (fam_id, mem_num, p_id, mother_id, father_id, sex) in enumerate(reader):
                 if mother_id != '':
                     self.new_ped_mo[p_id] = mother_id
-                if fam_id != '':
+                if father_id != '':
                     self.new_ped_fa[p_id] = father_id
                 self.new_ped_sex[p_id] = sex
         except Exception as e:
@@ -85,7 +85,7 @@ class matches(object):
         outfh = open(out, 'w')
         writer = csv.writer(outfh)
         writer.writerow(['familyID', 'family_member', 'study_ID', 'StudyID_MATERNAL', 'StudyID_PATERNAL', 'Sex'])
-                            
+
         for family_id in range(len(comp)):
             for individual_id in comp[family_id]:
                 member_num = len(comp[family_id])

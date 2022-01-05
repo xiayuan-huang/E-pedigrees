@@ -36,7 +36,7 @@ class matches(object):
             for i, (fam_id, mem_num, p_id, mother_id, father_id, sex) in enumerate(reader):
                 if mother_id != '':
                     self.new_ped_mo[p_id] = mother_id
-                if fam_id != '':
+                if father_id != '':
                     self.new_ped_fa[p_id] = father_id
                 self.new_ped_sex[p_id] = sex
         except Exception as e:
@@ -56,9 +56,9 @@ class matches(object):
         for i in self.qc_matches:
             for j in self.qc_matches[i]:
                 self.edges.append((i, j))
-                if self.qc_matches[i][j] == 'mother':
+                if self.qc_matches[i][j].lower() == 'mother':
                     self.rifter_mo[i] = j
-                if self.qc_matches[i][j] == 'father':
+                if self.qc_matches[i][j].lower() == 'father':
                     self.rifter_fa[i] = j
         
         new_ped_mo_copy = copy.deepcopy(self.new_ped_mo)
@@ -70,14 +70,14 @@ class matches(object):
         new_ped_fa_copy = copy.deepcopy(self.new_ped_fa)
         for i in new_ped_fa_copy:
             if i in self.rifter_fa:
-                if new_ped_fa_copy[i] != self.new_ped_fa[i]:
+                if new_ped_fa_copy[i] != self.rifter_fa[i]:
                     del self.new_ped_fa[i]
-
+        
         for i in self.new_ped_mo:
             self.edges.append((i, self.new_ped_mo[i]))
         for i in self.new_ped_fa:
             self.edges.append((i, self.new_ped_fa[i]))
-
+        
 
     def pedigree(self, out):
         G = nx.Graph()

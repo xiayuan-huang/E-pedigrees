@@ -40,7 +40,7 @@ class matches(object):
             for i, (fam_id, mem_num, p_id, mother_id, father_id, sex) in enumerate(reader):
                 if mother_id != '':
                     self.new_ped_mo[p_id] = mother_id
-                if fam_id != '':
+                if father_id != '':
                     self.new_ped_fa[p_id] = father_id
                 self.new_ped_sex[p_id] = sex
         except Exception as e:
@@ -62,6 +62,7 @@ class matches(object):
                 if self.fppa_pair[i][j].lower() == 'father':
                     self.fppa_fa[i] = j
 
+        '''
         ### break conflicted parent child relationships of fppa and new PED
 
         fppa_mo_copy = copy.deepcopy(self.fppa_mo)
@@ -75,6 +76,7 @@ class matches(object):
             if i in self.new_ped_fa:
                 if fppa_fa_copy[i] != self.new_ped_fa[i]:
                     del self.fppa_fa[i]
+        '''
 
         ### break conflicted parent child relationships from PED and RIFTEHR
         for i in self.ec:
@@ -95,6 +97,19 @@ class matches(object):
             if i in self.ec_fa:
                 if new_ped_fa_copy[i] != self.ec_fa[i]:
                     del self.new_ped_fa[i]
+        
+        ### break conflicted parent child relationships from FPPA and RIFTEHR
+        fppa_mo_copy = copy.deepcopy(self.fppa_mo)
+        for i in fppa_mo_copy:
+            if i in self.ec_mo:
+                if fppa_mo_copy[i] != self.ec_mo[i]:
+                    del self.fppa_mo[i]
+
+        fppa_fa_copy = copy.deepcopy(self.fppa_fa)
+        for i in fppa_fa_copy:
+            if i in self.ec_fa:
+                if fppa_fa_copy[i] != self.ec_fa[i]:
+                    del self.fppa_fa[i]
 
         ### add the rest of edges
 
